@@ -37,9 +37,9 @@ void BRAIN::start(){
         for(int j = 0; j < 8; j++){
             if ((i + j) >= 4 && (i + j) <= 10){
                 if ((i + j) % 2 != 0){
-                    table.setRectPos(i , j , chess_black_Pen , chess_black_Brush);
+                    table.setRect(i , j , chess_black_Pen , chess_black_Brush);
                 }else{
-                    table.setRectPos(i , j , chess_black_Pen , chess_white_Brush);
+                    table.setRect(i , j , chess_black_Pen , chess_white_Brush);
                 }
             }
         }

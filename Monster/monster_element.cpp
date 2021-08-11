@@ -49,12 +49,12 @@ void MTable::setAutoSize(){
 void MTable::setRectStyle(QPen *pen, QBrush *brush){
     for(int i = 0; i < cell_x; i++){
         for (int j = 0; j < cell_y; j++){
-            setRectPos(i , j , pen, brush);
+            setRect(i , j , pen, brush);
         }
     }
 }
 
-void MTable::setRectPos(int x, int y, QPen *pen, QBrush *brush){
+void MTable::setRect(int x, int y, QPen *pen, QBrush *brush){
     data[x * y + y] = Parent->scene->addRect(QRect(start_x + x * cell_widht, start_y + y * cell_height ,
                                                     cell_widht, cell_height), *pen, *brush);
 }
