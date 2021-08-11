@@ -1,0 +1,17 @@
+<RCC>
+    <qresource prefix="/">
+        <file>img/black_1.png</file>
+        <file>img/black_2.png</file>
+        <file>img/black_3.png</file>
+        <file>img/black_4.png</file>
+        <file>img/black_5.png</file>
+        <file>img/black_6.png</file>
+        <file>img/white_1.png</file>
+        <file>img/white_2.png</file>
+        <file>img/white_3.png</file>
+        <file>img/white_4.png</file>
+        <file>img/white_5.png</file>
+        <file>img/white_6.png</file>
+        <file>img/chess_mem.gif</file>
+    </qresource>
+</RCC>
