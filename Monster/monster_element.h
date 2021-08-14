@@ -31,7 +31,7 @@ public:
     void setRectStyle(QPen *pen, QBrush *brush);                    // заполняет всю таблицу квадратами с одним и тем же стилем
     void setDeleteCell(int x, int y);                               // удаляет элемент таблицы (закрашивает белым)
 
-    void setRect(int x, int y, QPen *pen, QBrush *brush);        // добавить квадрат по координатам ячеек в таблице
+    void setRect(int x, int y, QPen *pen, QBrush *brush);           // добавить квадрат по координатам ячеек в таблице
     void setPicture(int x, int y, QString str);                     // добавить картинку по координатам ячеек в таблице
     void setText(int x, int y, QFont fnt, QString str);             // добавить текст по координатам ячеек в таблице
 

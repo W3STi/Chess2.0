@@ -31,7 +31,7 @@ void BRAIN::start(){
     redpen->setWidth(3); // толщина ручки
     MTable table(wnd);
     table.setSize(9, 9, 60, 60); // поле 8 на 8
-
+    //table.setAutoSize();
     //разметка поля
     for (int i = 0; i < 8; i++){
         for(int j = 0; j < 8; j++){
