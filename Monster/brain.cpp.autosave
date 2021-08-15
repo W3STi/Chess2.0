@@ -70,9 +70,7 @@ void BRAIN::start(){
     table.setPicture(0, 7, ":/img/white_4.png");
     table.setPicture(1, 7, ":/img/white_6.png");
 
-    //table.swapCell(6, 0, 1, 7);
-    table.setPicture(1, 7, ":/img/black_6.png");
-    table.setPicture(6, 0, ":/img/white_6.png");
+    table.swapCell(6, 0, 1, 7);
 
     QFont fnt;
     fnt.setPointSize(25);
