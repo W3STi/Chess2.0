@@ -32,6 +32,11 @@ void MTable::setPosition(int x, int y){
     start_y = y;
 }
 
+void MTable::setAutoPosition(){
+    start_x = (Parent->GraphicsWidth() - cell_x * cell_widht) / 2;
+    start_y = (Parent->GraphicsHeight() - cell_y * cell_height) / 2;
+}
+
 void MTable::setAutoSize(){
     int razmer_w = Parent->GraphicsWidth();
     int razmer_h = Parent->GraphicsHeight();

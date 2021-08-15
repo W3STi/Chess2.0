@@ -10,6 +10,7 @@ MainWindow::MainWindow(QWidget *parent)
     scene_paint_item.resize(1);
     scene_paint_widget.resize(1);
     scene = new QGraphicsScene(ui->graphicsView);
+    scene->setSceneRect(QRect(9, 9, 980, 741));
     ui->graphicsView->setScene(scene);
 }
 
@@ -67,3 +68,14 @@ void MainWindow::addItem(QVector<QGraphicsItem*> mnstr){
 void MainWindow::addItem(QVector<QWidget*> mnstr){
     scene_paint_widget.push_back(mnstr);
 }
+
+void MainWindow::mousePressEvent(QMouseEvent *event){
+    qDebug() << "real pos = " << event->pos();
+    qDebug() << "relative pos = " << event->pos() - ui->graphicsView->geometry().topLeft();
+    Q_UNUSED(event);
+}
+
+void MainWindow::mouseReleaseEvent(QMouseEvent *event){
+    Q_UNUSED(event);
+}
+
