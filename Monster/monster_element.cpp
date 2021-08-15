@@ -81,6 +81,7 @@ void MTable::setText(int x, int y, QFont fnt, QString str){
     data[x * y + y]->setPos(startX + start_x + x * cell_widht, startY + start_y + y * cell_height);
 }
 
+
 MText::MText(QFont fnt){
     SetFont(fnt);
 }

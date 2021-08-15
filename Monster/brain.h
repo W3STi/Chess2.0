@@ -11,12 +11,17 @@ class BRAIN
 {
 public:
     MainWindow* wnd;
+    QVector <QVector <int>> board;
+    MTable table;
 
 public:
     BRAIN();
     BRAIN(MainWindow* mainwind);
 
     void start();
+    void movingFigure();
+    void startPosition();
+    void printStartBoard();
 
 };
 
