@@ -50,7 +50,7 @@ void BRAIN::start(){
     wnd->ResetScene();
     table.setSize(10, 10, 60, 60); // поле 8 на 8
     startPosition();
-    printBoard();
+    printStartBoard();
 
     // отрисовка (делать 1 раз, больше можно не прописывать, если не добавляются новые элементы)
     MButton btn;
@@ -99,7 +99,7 @@ void BRAIN::startPosition(){
 
 }
 
-void BRAIN::printBoard(){
+void BRAIN::printStartBoard(){
     for (int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             if (board[i][j] != -1){
