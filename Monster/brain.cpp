@@ -50,10 +50,7 @@ void BRAIN::start(){
     wnd->ResetScene();
     table.setSize(10, 10, 60, 60); // поле 8 на 8
     startPosition();
-    printBoard();
-
-    // отрисовка (делать 1 раз, больше можно не прописывать, если не добавляются новые элементы)
-    MButton btn;
+    printStartBoard();
 
 }
 
@@ -99,7 +96,7 @@ void BRAIN::startPosition(){
 
 }
 
-void BRAIN::printBoard(){
+void BRAIN::printStartBoard(){
     for (int i = 0; i < 10; i++){
         for(int j = 0; j < 10; j++){
             if (board[i][j] != -1){
@@ -139,6 +136,173 @@ void BRAIN::printBoard(){
     table.setText(7 , 0, fnt, "g");
     table.setText(8 , 0, fnt, "h");
 
+}
+
+void searchMove(int &xCoord, int &yCoord,
+                int &xMove, int &yMove, QVector<QVector<int>>& board){
+
+    switch(board[xCoord][yCoord]){
+
+        case Wpawn:
+        //допилить проверку с королем
+        //проверка на ход в пустую клетку
+            if(board[xMove][yMove] == voidcell && ((xMove == ++xCoord && yMove == yCoord)||
+                    (xMove == xCoord && yMove == ++yCoord))){
+                //Проверка на поля превращения
+                if((yMove == 8 && (xMove >= 5 && xMove <= 8))
+                        ||(xMove == 8 && (yMove >= 5 && yMove <= 8))){
+                    //превращение пешки в выбранную фигуру
+                }else{
+                    //предыдущая клетка очищается
+                    board[xCoord][yCoord] = voidcell;
+                    //Пешка идет на новые координаты
+                    board[xMove][yMove] = Wpawn;
+                }
+            }
+            //Проверка на удар пешкой
+            else if((board[xMove][yMove] > 10)
+                     && ((xMove == ++xCoord && yMove == ++yCoord)
+                     ||(xMove == --xCoord && yMove == --yCoord))){
+                //delete figure
+                //предыдущая клетка очищается
+                board[xCoord][yCoord] = voidcell;
+                //Проверка на превращения при ударе
+                if((yMove == 8 && (xMove >= 5 && xMove <= 8))
+                        ||(xMove == 8 && (yMove >= 5 && yMove <= 8))){
+                    //превращение пешки в выбранную фигуру
+                    //Иначе пешка идет на новые координаты
+            }else board[xMove][yMove] = Wpawn;
+    }
+            break;
+
+         case Wrook:
+            if(board[xMove][yMove] == voidcell && ((xMove == xCoord && yMove != yCoord)||
+                                                   (yMove == yCoord && xMove != xCoord))){
+                board[xCoord][yCoord] = voidcell;
+                board[xMove][yMove] = Wrook;
+            }
+            //Проверка на взятие фигуры
+            else if ((board[xMove][yMove] > 10) &&
+                     ((xMove == xCoord && yMove != yCoord)||(yMove == yCoord && xMove != xCoord))){
+                board[xCoord][yCoord] = voidcell;
+                //delete figure
+            }
+            break;
+
+         case Wknight:
+        if(board[xMove][yMove] == voidcell && (((xMove == xCoord + 2) && ((yMove == --yCoord) || (yMove == ++yCoord)))||
+                                              ((xMove == xCoord - 2) && ((yMove == --yCoord) || (yMove == ++yCoord))) ||
+                                              ((yMove == yCoord + 2) && ((xMove == --xCoord) || (xMove == ++xCoord))) ||
+                                              ((yMove == yCoord - 2) && ((xMove == --xCoord) || (xMove == ++xCoord))))){
+            board[xCoord][yCoord] = voidcell;
+            board[xMove][yMove] = Wknight;
+        }
+        //Проверка на взятие фигуры
+        else if ((board[xMove][yMove] > 10) && (((xMove == xCoord + 2) && ((yMove == --yCoord) || (yMove == ++yCoord)))||
+                                                ((xMove == xCoord - 2) && ((yMove == --yCoord) || (yMove == ++yCoord))) ||
+                                                ((yMove == yCoord + 2) && ((xMove == --xCoord) || (xMove == ++xCoord))) ||
+                                                ((yMove == yCoord - 2) && ((xMove == --xCoord) || (xMove == ++xCoord))))){
+            board[xCoord][yCoord] = voidcell;
+            //delete figure
+        }
+
+            break;
+
+        case Wbishop:
+        if(board[xMove][yMove] == voidcell && ((xMove + yMove == xCoord + yCoord) ||
+                                               (9 - yMove + xMove ==  9 - yCoord + xCoord))){
+            board[xCoord][yCoord] = voidcell;
+            board[xMove][yMove] = Wbishop;
+        }
+        //Проверка на взятие фигуры
+        else if ((board[xMove][yMove] > 10) && ((xMove + yMove == xCoord + yCoord) ||
+                                                (9 - yMove + xMove ==  9 - yCoord + xCoord))){
+            board[xCoord][yCoord] = voidcell;
+            //delete figure
+        }
+        break;
+
+    case Bpawn:
+    //допилить проверку с королем
+    //проверка на ход в пустую клетку
+        if(board[xMove][yMove] == voidcell && ((xMove == ++xCoord && yMove == yCoord)||
+                (xMove == xCoord && yMove == ++yCoord))){
+            //Проверка на поля превращения
+            if((yMove == 8 && (xMove >= 5 && xMove <= 8))
+                    ||(xMove == 8 && (yMove >= 5 && yMove <= 8))){
+                //превращение пешки в выбранную фигуру
+            }else{
+                //предыдущая клетка очищается
+                board[xCoord][yCoord] = voidcell;
+                //Пешка идет на новые координаты
+                board[xMove][yMove] = Wpawn;
+            }
+        }
+        //Проверка на удар пешкой
+        else if((board[xMove][yMove] <= 6 && board[xMove][yMove] >= 1)
+                 && ((xMove == ++xCoord && yMove == ++yCoord)
+                 ||(xMove == --xCoord && yMove == --yCoord))){
+            //delete figure
+            //предыдущая клетка очищается
+            board[xCoord][yCoord] = voidcell;
+            //Проверка на превращения при ударе
+            if((yMove == 8 && (xMove >= 5 && xMove <= 8))
+                    ||(xMove == 8 && (yMove >= 5 && yMove <= 8))){
+                //превращение пешки в выбранную фигуру
+                //Иначе пешка идет на новые координаты
+        }else board[xMove][yMove] = Wpawn;
+}
+        break;
+
+    case Brook:
+       if(board[xMove][yMove] == voidcell && ((xMove == xCoord && yMove != yCoord)||
+                                              (yMove == yCoord && xMove != xCoord))){
+           board[xCoord][yCoord] = voidcell;
+           board[xMove][yMove] = Wrook;
+       }
+       //Проверка на взятие фигуры
+       else if ((board[xMove][yMove] <= 6 && board[xMove][yMove] >= 1) &&
+                ((xMove == xCoord && yMove != yCoord)||(yMove == yCoord && xMove != xCoord))){
+           board[xCoord][yCoord] = voidcell;
+           //delete figure
+       }
+       break;
+
+    case Bknight:
+   if(board[xMove][yMove] == voidcell && (((xMove == xCoord + 2) && ((yMove == --yCoord) || (yMove == ++yCoord)))||
+                                         ((xMove == xCoord - 2) && ((yMove == --yCoord) || (yMove == ++yCoord))) ||
+                                         ((yMove == yCoord + 2) && ((xMove == --xCoord) || (xMove == ++xCoord))) ||
+                                         ((yMove == yCoord - 2) && ((xMove == --xCoord) || (xMove == ++xCoord))))){
+       board[xCoord][yCoord] = voidcell;
+       board[xMove][yMove] = Wknight;
+   }
+   //Проверка на взятие фигуры
+   else if ((board[xMove][yMove] <= 6 && board[xMove][yMove] >= 1) &&
+                                          (((xMove == xCoord + 2) && ((yMove == --yCoord) || (yMove == ++yCoord)))||
+                                           ((xMove == xCoord - 2) && ((yMove == --yCoord) || (yMove == ++yCoord))) ||
+                                           ((yMove == yCoord + 2) && ((xMove == --xCoord) || (xMove == ++xCoord))) ||
+                                           ((yMove == yCoord - 2) && ((xMove == --xCoord) || (xMove == ++xCoord))))){
+       board[xCoord][yCoord] = voidcell;
+       //delete figure
+   }
+       break;
+
+    case Bbishop:
+    if(board[xMove][yMove] == voidcell && ((xMove + yMove == xCoord + yCoord) ||
+                                           (9 - yMove + xMove ==  9 - yCoord + xCoord))){
+        board[xCoord][yCoord] = voidcell;
+        board[xMove][yMove] = Wbishop;
+    }
+    //Проверка на взятие фигуры
+    else if ((board[xMove][yMove] <= 6 && board[xMove][yMove] >= 1) && ((xMove + yMove == xCoord + yCoord) ||
+                                            (9 - yMove + xMove ==  9 - yCoord + xCoord))){
+        board[xCoord][yCoord] = voidcell;
+        //delete figure
+    }
+    break;
+}
+    //В функции добавить удаление фигур, при их взятии, и выбор фигуры при превращении пешки.
+    //И сделать проверку хода на короля, и проверку на открытие короля при ходе
 }
 
 
