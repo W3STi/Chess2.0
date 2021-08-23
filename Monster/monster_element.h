@@ -5,6 +5,7 @@
 #include <QGraphicsItem>
 #include <QGraphicsScene>
 #include <QPushButton>
+#include <QDebug>
 #include "mainwindow.h"
 
 class Monster_Element                                               // класс общий (для наследования)
@@ -35,6 +36,7 @@ public:
     void setRect(int x, int y, QPen *pen, QBrush *brush);        // добавить квадрат по координатам ячеек в таблице
     void setPicture(int x, int y, QString str);                     // добавить картинку по координатам ячеек в таблице
     void setText(int x, int y, QFont fnt, QString str);             // добавить текст по координатам ячеек в таблице
+    QPointF SeachCell(QPointF pnt);
 
 private:
     int cell_x = 1;                                                 // кол-во клеток в ширину
