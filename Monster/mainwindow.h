@@ -5,11 +5,14 @@
 #include <QGraphicsObject>
 #include <QVector>
 #include <QGraphicsItem>
+#include <QGraphicsScene>
+#include <QCursor>
+#include <QDebug>
+#include <QMouseEvent>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
-
 
 class MainWindow : public QMainWindow                                   // класс главного окна
 {
@@ -19,7 +22,7 @@ public:
     MainWindow(QWidget *parent = nullptr);                              // хз-конструктор
     ~MainWindow();
 
-    void Log(QString str);                                              // функция записи информации в statusBar
+                               // функция записи информации в statusBar
     void showRect(QRect rct, QPen *pen, QBrush *brush);                 // отрисовать квавдрат
     void showPicture(int x, int y, int w, int h, QString name);         // отрисовать изображение в заданном месте с заданными размерами
     void ResetScene();                                                  // отрисовать сцену из буфера
@@ -30,10 +33,16 @@ public:
     void addItem(QVector<QGraphicsItem*> mnstr);                        // добавляет графические элементы в буфер
     void addItem(QVector<QWidget*> mnstr);                              // (перегрузка) добавляет виджеты в буфер
 
-public slots:
+    void mousePressEvent(QMouseEvent *event);
+    void mouseReleaseEvent(QMouseEvent *event);
 
+public slots:
+        void Log(QString str);
 
 private slots:
+
+signals:
+    void KeyPress(int x, int y);
 
 public:
     QGraphicsScene *scene;                                              // графическая сцена

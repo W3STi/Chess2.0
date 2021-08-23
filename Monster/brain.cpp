@@ -49,8 +49,17 @@ void BRAIN::start(){
     wnd->addItem(table.GetData());
     wnd->ResetScene();
     table.setSize(10, 10, 60, 60); // поле 8 на 8
+    table.setAutoPosition();
+
+
     startPosition();
     printStartBoard();
+<<<<<<< HEAD
+=======
+
+    // отрисовка (делать 1 раз, больше можно не прописывать, если не добавляются новые элементы)
+    MButton btn;
+>>>>>>> 53984076977405bc375b989044e21f25bc4eb975
 
 }
 

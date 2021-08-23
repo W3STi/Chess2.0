@@ -27,6 +27,7 @@ public:
 
     void setSize(int x = 1, int y = 1, int w = 20, int h = 20);     // задание размеров таблицы
     void setPosition(int x, int y);                                 // задание положения левого верхнего пикселя таблицы
+    void setAutoPosition();
     void setAutoSize();                                             // автоматическое задание размеров
     void setRectStyle(QPen *pen, QBrush *brush);                    // заполняет всю таблицу квадратами с одним и тем же стилем
     void setDeleteCell(int x, int y);                               // удаляет элемент таблицы (закрашивает белым)
