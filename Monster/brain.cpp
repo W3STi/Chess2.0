@@ -29,7 +29,7 @@ QPen *transparentpen = new QPen(Qt::transparent);
 // кисти
 QBrush *transparent_Brush = new QBrush(Qt::transparent, Qt::SolidPattern);
 QBrush *chess_white_Brush = new QBrush(chess_white, Qt::SolidPattern);
-QBrush *chess_black_Brush = new QBrush(chess_black, Qt::SolidPattern);
+QBrush *chess_black_Brush =                      new QBrush(chess_black, Qt::SolidPattern);
 
 BRAIN::BRAIN(){
 
