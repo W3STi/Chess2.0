@@ -86,6 +86,18 @@ void MTable::setText(int x, int y, QFont fnt, QString str){
     data[x * y + y]->setPos(startX + start_x + x * cell_widht, startY + start_y + y * cell_height);
 }
 
+QPointF MTable::SeachCell(QPointF pnt){
+    QPointF temp;
+    int x = (pnt.x() - start_x + cell_widht - 1) / cell_widht - 1;
+    int y = (pnt.y() - start_y + cell_height - 1) / cell_height - 1;
+    if (pnt.x() < start_x || x >= cell_x || pnt.y() < start_y || y >= cell_y){
+        x = -1;
+        y = -1;
+    }
+    temp.setX(x);
+    temp.setY(y);
+    return temp;
+}
 
 MText::MText(QFont fnt){
     SetFont(fnt);

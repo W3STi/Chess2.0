@@ -1,7 +1,9 @@
 #ifndef MAINWINDOW_H
 #define MAINWINDOW_H
 
+#include <iostream>
 #include <QMainWindow>
+#include <QGraphicsSceneMouseEvent>
 #include <QGraphicsObject>
 #include <QVector>
 #include <QGraphicsItem>
@@ -9,10 +11,27 @@
 #include <QCursor>
 #include <QDebug>
 #include <QMouseEvent>
+#include <QToolBar>
+#include <QPushButton>
+#include <QLabel>
+#include <QWidgetAction>
+#include <QDir>
 
 QT_BEGIN_NAMESPACE
 namespace Ui { class MainWindow; }
 QT_END_NAMESPACE
+
+class Scene : public QGraphicsScene {
+    Q_OBJECT
+public:
+    using QGraphicsScene::QGraphicsScene;
+    //explicit Scene(QObject *parent = nullptr);
+protected:
+    void mousePressEvent(QGraphicsSceneMouseEvent *event) override;
+
+signals:
+    void SceneKeyPress(QPointF);
+};
 
 class MainWindow : public QMainWindow                                   // класс главного окна
 {
@@ -33,19 +52,21 @@ public:
     void addItem(QVector<QGraphicsItem*> mnstr);                        // добавляет графические элементы в буфер
     void addItem(QVector<QWidget*> mnstr);                              // (перегрузка) добавляет виджеты в буфер
 
-    void mousePressEvent(QMouseEvent *event);
-    void mouseReleaseEvent(QMouseEvent *event);
+    void setTopToolBar(QToolBar* toolbar);
+    void setBottomToolBar(QToolBar* toolbar);
+    void setLeftToolBar(QToolBar* toolbar);
+    void setRightToolBar(QToolBar* toolbar);
 
 public slots:
-        void Log(QString str);
+    void Log(QString str);
 
 private slots:
 
 signals:
-    void KeyPress(int x, int y);
+    void KeyPress(QPointF);
 
 public:
-    QGraphicsScene *scene;                                              // графическая сцена
+    Scene *scene;    // графическая сцена
 
 private:
     Ui::MainWindow *ui;                                                 // окно приложения

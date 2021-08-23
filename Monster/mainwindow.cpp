@@ -1,6 +1,10 @@
 #include "mainwindow.h"
 #include "ui_mainwindow.h"
 
+void Scene::mousePressEvent(QGraphicsSceneMouseEvent *event){
+    emit SceneKeyPress(event->scenePos());
+}
+
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::MainWindow)
@@ -9,9 +13,12 @@ MainWindow::MainWindow(QWidget *parent)
 
     scene_paint_item.resize(1);
     scene_paint_widget.resize(1);
-    scene = new QGraphicsScene(ui->graphicsView);
-    scene->setSceneRect(QRect(9, 9, 980, 741));
+
+    scene = new Scene(ui->graphicsView);
+    connect(scene, SIGNAL(SceneKeyPress(QPointF)), this , SIGNAL(KeyPress(QPointF)));
     ui->graphicsView->setScene(scene);
+
+    //    setTopToolBar(createToolBar());
 }
 
 MainWindow::~MainWindow()
@@ -69,13 +76,21 @@ void MainWindow::addItem(QVector<QWidget*> mnstr){
     scene_paint_widget.push_back(mnstr);
 }
 
-void MainWindow::mousePressEvent(QMouseEvent *event){
-    qDebug() << "real pos = " << event->pos();
-    qDebug() << "relative pos = " << event->pos() - ui->graphicsView->geometry().topLeft();
-    Q_UNUSED(event);
+void MainWindow::setTopToolBar(QToolBar *toolbar){
+    addToolBar(Qt::TopToolBarArea, toolbar);
 }
 
-void MainWindow::mouseReleaseEvent(QMouseEvent *event){
-    Q_UNUSED(event);
+
+void MainWindow::setBottomToolBar(QToolBar *toolbar){
+    addToolBar(Qt::BottomToolBarArea, toolbar);
 }
 
+
+void MainWindow::setLeftToolBar(QToolBar *toolbar){
+    addToolBar(Qt::LeftToolBarArea, toolbar);
+}
+
+
+void MainWindow::setRightToolBar(QToolBar *toolbar){
+    addToolBar(Qt::RightToolBarArea, toolbar);
+}
